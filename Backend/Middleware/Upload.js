@@ -15,7 +15,7 @@ cloudinary.config({
 
 
 
-const donarStorage = new CloudinaryStorage({
+const carStorage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: 'blood-donors',
@@ -25,10 +25,10 @@ const donarStorage = new CloudinaryStorage({
 });
 
 const upload = multer({ 
-  storage: donarStorage,
+  storage: carStorage,
   limits: {
     fileSize: 5 * 1024 * 1024, 
   }
 });
 
-export const uploadDonorPhoto = upload.single('donorPhoto');
+export const uploadCarPhoto = upload.single('carPhoto');
