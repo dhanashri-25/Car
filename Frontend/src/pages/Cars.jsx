@@ -35,7 +35,7 @@ const Cars = () => {
       });
 
       const response = await fetch(
-        `http://localhost:5000/api/cars/all?${params}`
+        `https://car-tt1u.onrender.com/api/cars/all?${params}`
       );
       const data = await response.json();
 
