@@ -22,7 +22,7 @@ app.use(cors({
 }));
 
 
-app.use("/api/car" , carRouter)
+app.use("/api/cars" , carRouter)
 
 app.get("/" , (req , res) => {
   res.send("Hii From Backend")
