@@ -64,18 +64,9 @@ const CarCard = ({ car, variant = "default", onDelete }) => {
         className={`group bg-white ${
           isHomeVariant
             ? "rounded-2xl shadow-lg hover:shadow-2xl border-2 border-gray-100 hover:border-blue-200 hover:-translate-y-2"
-            : "rounded-lg shadow-md hover:shadow-xl"
+            : "rounded-xl shadow-md hover:shadow-xl border border-gray-200"
         } overflow-hidden transition-all duration-300 relative`}
       >
-        {/* Delete Button */}
-        <button
-          onClick={handleDeleteClick}
-          className="absolute top-2 left-2 z-10 bg-red-600 hover:bg-red-700 text-white p-2 rounded-full shadow-lg transition-colors opacity-0 group-hover:opacity-100"
-          title="Delete Car"
-        >
-          <TrashIcon className="h-4 w-4" />
-        </button>
-
         <div className={`relative ${isHomeVariant ? "overflow-hidden" : ""}`}>
           <img
             src={car.image}
@@ -104,7 +95,13 @@ const CarCard = ({ car, variant = "default", onDelete }) => {
             {car.year}
           </div>
         </div>
-        <div className={isHomeVariant ? "p-6" : "p-4"}>
+        <div
+          className={
+            isHomeVariant
+              ? "p-6 bg-gradient-to-br from-gray-50 to-white"
+              : "p-5 bg-gray-50/50"
+          }
+        >
           <div
             className={`flex items-center ${isHomeVariant ? "mb-3" : "mb-2"}`}
           >
@@ -113,10 +110,16 @@ const CarCard = ({ car, variant = "default", onDelete }) => {
                 key={i}
                 className={`${
                   isHomeVariant ? "h-5 w-5" : "h-4 w-4"
-                } text-yellow-400 fill-yellow-400`}
+                } text-yellow-400 fill-yellow-400 drop-shadow-sm`}
               />
             ))}
-            <span className="ml-2 text-sm text-gray-600">(4.9)</span>
+            <span
+              className={`ml-2 text-sm font-medium ${
+                isHomeVariant ? "text-gray-700" : "text-gray-600"
+              }`}
+            >
+              (4.9)
+            </span>
           </div>
           <h3
             className={`font-bold text-gray-900 ${
@@ -128,17 +131,30 @@ const CarCard = ({ car, variant = "default", onDelete }) => {
           <p className="text-gray-600 text-sm mb-3">
             {car.year} • Premium Quality Parts Available
           </p>
-          <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
             <Link
               to={`/car/${car._id}`}
-              className={`${
+              className={`flex-1 ${
                 isHomeVariant
                   ? "bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 px-6 py-3 text-sm font-semibold shadow-lg hover:shadow-xl"
-                  : "bg-blue-600 hover:bg-blue-700 px-4 py-2 text-sm"
-              } text-white rounded-lg transition-all duration-200`}
+                  : "bg-blue-600 hover:bg-blue-700 px-4 py-2 text-sm font-medium"
+              } text-white rounded-lg transition-all duration-200 text-center`}
             >
               View Parts
             </Link>
+            <button
+              onClick={handleDeleteClick}
+              className={`${
+                isHomeVariant
+                  ? "bg-red-600 hover:bg-red-700 p-3 shadow-lg hover:shadow-xl"
+                  : "bg-red-600 hover:bg-red-700 p-2"
+              } text-white rounded-lg transition-all duration-200 group/delete`}
+              title="Delete Car"
+            >
+              <TrashIcon
+                className={`${isHomeVariant ? "h-5 w-5" : "h-4 w-4"}`}
+              />
+            </button>
           </div>
         </div>
       </div>
