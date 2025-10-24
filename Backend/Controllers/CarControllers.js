@@ -1,8 +1,9 @@
 import { CarModel } from "../Models/CarModel.js";
+import dotenv from 'dotenv';
+dotenv.config();
 
 export const PostCar = async (req, res) => {
 
-  console.log("hii")
   try {
 
     const {
@@ -212,6 +213,69 @@ export const getFeaturedCars = async (req, res) => {
 
   } catch (error) {
     console.error('Error fetching featured cars:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Internal server error',
+      error: error.message
+    });
+  }
+};
+
+
+
+
+
+export const deleteCar = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { pin } = req.body;
+
+    // Validate inputs
+    if (!id) {
+      return res.status(400).json({
+        success: false,
+        message: 'Car ID is required - कार आईडी आवश्यक है'
+      });
+    }
+
+    if (!pin) {
+      return res.status(400).json({
+        success: false,
+        message: 'PIN is required - पिन आवश्यक है'
+      });
+    }
+
+    // Verify PIN from environment variable
+    const DELETE_PIN = process.env.DELETE_PIN ;
+    
+    if (pin !== DELETE_PIN) {
+      return res.status(401).json({
+        success: false,
+        message: 'Invalid PIN - गलत पिन'
+      });
+    }
+
+    // Find and delete the car
+    const deletedCar = await CarModel.findByIdAndDelete(id);
+
+    if (!deletedCar) {
+      return res.status(404).json({
+        success: false,
+        message: 'Car not found - कार नहीं मिली'
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: 'Car deleted successfully - कार सफलतापूर्वक हटा दी गई',
+      data: {
+        deletedCarId: id,
+        carName: deletedCar.carName
+      }
+    });
+
+  } catch (error) {
+    console.error('Error deleting car:', error);
     res.status(500).json({
       success: false,
       message: 'Internal server error',

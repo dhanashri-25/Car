@@ -22,14 +22,14 @@ const CarDetails = () => {
   const [showEnquiryForm, setShowEnquiryForm] = useState(false);
   const [formStep, setFormStep] = useState(1);
   const [enquiryForm, setEnquiryForm] = useState({
-    buyerName: "",
-    buyerEmail: "",
-    buyerPhone: "",
-    buyerLocation: "",
-    interestedParts: "",
-    budget: "",
-    message: "",
-    urgency: "Normal",
+    buyerName: "Rohit Sharma",
+    buyerEmail: "rohit.sharma@example.com",
+    buyerPhone: "9876543210",
+    buyerLocation: "Mumbai, Maharashtra",
+    interestedParts: "Front Bumper, Headlights",
+    budget: "15000",
+    message: "Need these parts urgently within 2 days if available.",
+    urgency: "High",
   });
 
   useEffect(() => {
@@ -69,23 +69,39 @@ const CarDetails = () => {
   const handleEnquirySubmit = (e) => {
     e.preventDefault();
 
-    console.log("=== BUYER ENQUIRY FORM SUBMITTED ===");
-    console.log("Buyer Details:", enquiryForm);
-    console.log("Car Information:", {
-      carId: id,
-      carName: car?.carName,
-      brand: car?.brand,
-      model: car?.model,
-      year: car?.year,
-    });
-    console.log("Seller Information:", car?.sellerInfo);
-    console.log("Available Parts Categories:", car?.availablePartsCategories);
-    console.log("Detailed Parts:", car?.detailedParts);
-    console.log("=====================================");
+    const message = `
+🚗 *New Buyer Enquiry Received* 🚗
 
-    alert(
-      `✅ पूछताछ सफलतापूर्वक भेजी गई!\n\nBuyer: ${enquiryForm.buyerName}\nInterested in: ${enquiryForm.interestedParts}\nBudget: ₹${enquiryForm.budget}\n\nविक्रेता जल्दी ही आपसे संपर्क करेंगे।`
-    );
+*Buyer Details:*
+👤 Name: ${enquiryForm.buyerName}
+📧 Email: ${enquiryForm.buyerEmail}
+📞 Phone: ${enquiryForm.buyerPhone}
+📍 Location: ${enquiryForm.buyerLocation}
+
+*Car Details:*
+🚘 Car: ${car?.carName || "N/A"}
+🏷️ Brand: ${car?.brand || "N/A"}
+📅 Model Year: ${car?.year || "N/A"}
+
+👉 Tap below to view the car:
+${`http://localhost:5173/car/${id}`}
+
+*Enquiry Info:*
+🧩 Interested Parts: ${enquiryForm.interestedParts}
+💰 Budget: ₹${enquiryForm.budget}
+⚡ Urgency: ${enquiryForm.urgency}
+🗒️ Message: ${enquiryForm.message || "No additional message"}
+
+----------------------------------
+`;
+
+    const encodedMessage = encodeURIComponent(message);
+
+    const phoneNumber = "917499454264";
+
+    const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+    window.open(whatsappURL, "_blank");
 
     setShowEnquiryForm(false);
     setEnquiryForm({

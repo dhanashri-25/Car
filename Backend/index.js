@@ -17,6 +17,7 @@ app.use(cookieParser());
 
 app.use(cors({
   origin: 'https://carpartspro.vercel.app', 
+
   methods: ['GET', 'POST', 'PUT', 'DELETE'], 
   credentials: true
 }));
@@ -31,5 +32,5 @@ app.get("/" , (req , res) => {
 
 connectDB();
 app.listen(5000 , () => {
-  console.log(`Server is ruunning successfully at  : https://car-tt1u.onrender.com`)
+  console.log(`Server is ruunning successfully at  : http://localhost:5000`)
 })

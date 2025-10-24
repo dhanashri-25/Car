@@ -1,6 +1,6 @@
 // backend/scripts/dummyCars.js
 import mongoose from 'mongoose';
-import { CarModel } from './models/CarModel.js';
+import { CarModel } from './Models/CarModel.js';
 import dotenv from 'dotenv';
 
 dotenv.config();

@@ -1,5 +1,5 @@
 // components/Footer.jsx
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   TruckIcon,
@@ -7,8 +7,17 @@ import {
   EnvelopeIcon,
   MapPinIcon,
 } from "@heroicons/react/24/outline";
+import { FaWhatsapp } from "react-icons/fa";
 
 const Footer = () => {
+  const [showContactOptions, setShowContactOptions] = useState(false);
+
+  const phoneNumber = "917499454264";
+  const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+    "Hello, I want to inquire about car parts."
+  )}`;
+  const callURL = `tel:+${phoneNumber}`;
+
   return (
     <footer className="bg-gray-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -89,12 +98,32 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link
-                  to="/contact"
-                  className="text-gray-300 hover:text-white transition-colors"
+                <button
+                  onClick={() => setShowContactOptions(!showContactOptions)}
+                  className="text-gray-300 hover:text-white transition-colors text-left"
                 >
                   Contact Us
-                </Link>
+                </button>
+                {showContactOptions && (
+                  <div className="mt-2 ml-4 space-y-2">
+                    <a
+                      href={whatsappURL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-sm text-green-400 hover:text-green-300 transition-colors"
+                    >
+                      <FaWhatsapp className="h-4 w-4" />
+                      Chat on WhatsApp
+                    </a>
+                    <a
+                      href={callURL}
+                      className="flex items-center gap-2 text-sm text-blue-400 hover:text-blue-300 transition-colors"
+                    >
+                      <PhoneIcon className="h-4 w-4" />
+                      Make a Call
+                    </a>
+                  </div>
+                )}
               </li>
             </ul>
           </div>
@@ -103,13 +132,43 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">Contact Info</h3>
             <ul className="space-y-3">
-              <li className="flex items-center space-x-2">
-                <PhoneIcon className="h-5 w-5 text-blue-400" />
-                <span className="text-gray-300">+91 98765 43210</span>
+              <li className="relative">
+                <button
+                  onClick={() => setShowContactOptions(!showContactOptions)}
+                  className="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors w-full text-left"
+                >
+                  <PhoneIcon className="h-5 w-5 text-blue-400" />
+                  <span>+91 74994 54264</span>
+                </button>
+                {showContactOptions && (
+                  <div className="absolute top-full left-0 mt-2 w-48 bg-gray-800 border border-gray-700 rounded-lg shadow-lg z-10">
+                    <a
+                      href={whatsappURL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-4 py-2 text-sm text-green-400 hover:text-green-300 hover:bg-gray-700 rounded-t-lg transition-colors"
+                    >
+                      <FaWhatsapp className="h-4 w-4" />
+                      Chat on WhatsApp
+                    </a>
+                    <a
+                      href={callURL}
+                      className="flex items-center gap-2 px-4 py-2 text-sm text-blue-400 hover:text-blue-300 hover:bg-gray-700 rounded-b-lg transition-colors"
+                    >
+                      <PhoneIcon className="h-4 w-4" />
+                      Make a Call
+                    </a>
+                  </div>
+                )}
               </li>
               <li className="flex items-center space-x-2">
                 <EnvelopeIcon className="h-5 w-5 text-blue-400" />
-                <span className="text-gray-300">info@carpartspro.com</span>
+                <a
+                  href="mailto:info@carpartspro.com"
+                  className="text-gray-300 hover:text-white transition-colors"
+                >
+                  info@carpartspro.com
+                </a>
               </li>
               <li className="flex items-start space-x-2">
                 <MapPinIcon className="h-5 w-5 text-blue-400 mt-0.5" />
@@ -127,7 +186,7 @@ const Footer = () => {
 
         <div className="flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-400 text-sm">
-            © 2024 CarParts Pro. All rights reserved.
+            © 2025 CarParts Pro. All rights reserved.
           </p>
           <div className="flex space-x-4 mt-4 md:mt-0">
             <Link

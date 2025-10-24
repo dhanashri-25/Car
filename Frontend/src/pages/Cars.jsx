@@ -6,6 +6,7 @@ import {
   FunnelIcon,
   StarIcon,
 } from "@heroicons/react/24/outline";
+import CarCard from "../components/CarCard";
 
 const Cars = () => {
   const [cars, setCars] = useState([]);
@@ -177,59 +178,14 @@ const Cars = () => {
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {cars.map((car) => (
-                <div
+                <CarCard
                   key={car._id}
-                  className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
-                >
-                  <div className="relative">
-                    <img
-                      src={car.image}
-                      alt={car.carName}
-                      className="w-full h-48 object-cover"
-                    />
-                    <div className="absolute top-2 right-2 bg-blue-600 text-white px-2 py-1 rounded text-sm">
-                      {car.year}
-                    </div>
-                  </div>
-                  <div className="p-4">
-                    <div className="flex items-center mb-2">
-                      {[...Array(5)].map((_, i) => (
-                        <StarIcon
-                          key={i}
-                          className="h-4 w-4 text-yellow-400 fill-yellow-400"
-                        />
-                      ))}
-                      <span className="ml-1 text-sm text-gray-600">(4.9)</span>
-                    </div>
-                    <h3 className="font-bold text-lg text-gray-900 mb-1">
-                      {car.carName}
-                    </h3>
-                    <p className="text-gray-600 mb-3">
-                      {car.brand} {car.model}
-                    </p>
-                    <div className="flex flex-wrap gap-1 mb-3">
-                      {car.availableParts?.slice(0, 2).map((part, index) => (
-                        <span
-                          key={index}
-                          className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded"
-                        >
-                          {part.partCategory}
-                        </span>
-                      ))}
-                      {car.availableParts?.length > 2 && (
-                        <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded">
-                          +{car.availableParts?.length - 2}
-                        </span>
-                      )}
-                    </div>
-                    <Link
-                      to={`/car/${car._id}`}
-                      className="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded transition-colors duration-200"
-                    >
-                      View Details
-                    </Link>
-                  </div>
-                </div>
+                  car={car}
+                  variant="default"
+                  onDelete={() => {
+                    fetchCars();
+                  }}
+                />
               ))}
             </div>
 

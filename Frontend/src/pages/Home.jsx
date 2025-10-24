@@ -14,6 +14,7 @@ import {
   CheckBadgeIcon,
   ArrowTrendingUpIcon,
 } from "@heroicons/react/24/outline";
+import CarCard from "../components/CarCard";
 
 const Home = () => {
   const [featuredCars, setFeaturedCars] = useState([]);
@@ -326,83 +327,14 @@ const Home = () => {
           ) : featuredCars.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {featuredCars.map((car) => (
-                <div
+                <CarCard
                   key={car._id}
-                  className="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 border-2 border-gray-100 hover:border-blue-200 hover:-translate-y-2"
-                >
-                  <div className="relative overflow-hidden">
-                    <img
-                      src={car.image}
-                      alt={car.carName}
-                      className="w-full h-56 object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <div className="absolute top-4 right-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
-                      {car.year}
-                    </div>
-                    <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold text-gray-800">
-                      Featured
-                    </div>
-                  </div>
-
-                  <div className="p-6">
-                    <div className="flex items-center mb-3">
-                      {[...Array(5)].map((_, i) => (
-                        <StarIcon
-                          key={i}
-                          className="h-5 w-5 text-yellow-400 fill-yellow-400"
-                        />
-                      ))}
-                      <span className="ml-2 text-sm font-semibold text-gray-600">
-                        (4.9)
-                      </span>
-                    </div>
-
-                    <h3 className="text-2xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
-                      {car.carName}
-                    </h3>
-                    <p className="text-gray-600 mb-4 font-medium">
-                      {car.brand} {car.model} • {car.year}
-                    </p>
-
-                    <div className="flex flex-wrap gap-2 mb-6">
-                      {Object.keys(car.availablePartsCategories || {})
-                        .filter((key) => car.availablePartsCategories[key])
-                        .slice(0, 3)
-                        .map((category, index) => (
-                          <span
-                            key={index}
-                            className="px-3 py-1.5 bg-gradient-to-r from-blue-50 to-blue-100 text-blue-800 text-xs font-semibold rounded-full capitalize border border-blue-200"
-                          >
-                            {category.replace(/([A-Z])/g, " $1")}
-                          </span>
-                        ))}
-
-                      {Object.keys(car.availablePartsCategories || {}).filter(
-                        (key) => car.availablePartsCategories[key]
-                      ).length > 3 && (
-                        <span className="px-3 py-1.5 bg-gray-100 text-gray-700 text-xs font-semibold rounded-full border border-gray-200">
-                          +
-                          {Object.keys(
-                            car.availablePartsCategories || {}
-                          ).filter((key) => car.availablePartsCategories[key])
-                            .length - 3}{" "}
-                          more
-                        </span>
-                      )}
-                    </div>
-
-                    <Link
-                      to={`/car/${car._id}`}
-                      className="group/button block w-full text-center bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-4 px-4 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl"
-                    >
-                      <span className="flex items-center justify-center">
-                        View Details
-                        <ChevronRightIcon className="ml-2 h-5 w-5 group-hover/button:translate-x-1 transition-transform" />
-                      </span>
-                    </Link>
-                  </div>
-                </div>
+                  car={car}
+                  variant="home"
+                  onDelete={() => {
+                    fetchFeaturedCars();
+                  }}
+                />
               ))}
             </div>
           ) : (
