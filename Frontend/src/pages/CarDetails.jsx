@@ -84,7 +84,7 @@ const CarDetails = () => {
 📅 Model Year: ${car?.year || "N/A"}
 
 👉 Tap below to view the car:
-${`http://localhost:5173/car/${id}`}
+${`https://carpartspro.vercel.app//car/${id}`}
 
 *Enquiry Info:*
 🧩 Interested Parts: ${enquiryForm.interestedParts}
